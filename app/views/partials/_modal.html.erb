@@ -1,0 +1,14 @@
+<div class="modal"
+  data-action="turbo:frame-load->modal#open turbo:submit-end->modal#onFormSubmit"
+  data-controller="modal"
+>
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <%= turbo_frame_tag 'modal' %>              
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
