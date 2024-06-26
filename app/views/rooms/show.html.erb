@@ -1,10 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<div class="room">
+  <div class="actions-container">
+    <div class="card nav-buttons">
+      <footer class="card-footer">
+        <%= link_to "Leave Room", room_session_path(@room, current_user.session), data: { turbo_method: :delete }, class: 'card-footer-item' %>
+        <%= link_to "Close Room", @room, data: { turbo_method: :delete }, class: 'card-footer-item' %>
+      </footer>
+    </div>
+  </div>
 
-<%= render @room %>
+  <div id="sessions">
+    <% @room.sessions.each do |session| %>
+      <p><%= "#{session.user.email} is here!" %></p>
+    <% end %>
+  </div>
 
-<div>
-  <%= link_to "Edit this room", edit_room_path(@room) %> |
-  <%= link_to "Back to rooms", rooms_path %>
-
-  <%= button_to "Destroy this room", @room, method: :delete %>
+  <div data-controller="room" data-room-id="<%= dom_id @room %>">
+    <div data-room-target="videoContainer" id="video-container">
+      <video height="240" playsinline autoplay data-room-target="me"></video>
+    </div>
+  </div>
 </div>

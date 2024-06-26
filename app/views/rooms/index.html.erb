@@ -6,6 +6,6 @@
 <div id="rooms">
   <% @rooms.each do |room| %>
     <%= render room %>
-    <p><%= link_to "Show this room", room %></p>
+    <p><%= link_to "Enter this room", room_sessions_path(room), data: { turbo_confirm: 'Are you sure you want to enter this room?', "turbo-method": :post } %></p>
   <% end %>
 </div>
