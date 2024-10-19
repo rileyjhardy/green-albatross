@@ -4,4 +4,8 @@
     <%= room.name %>
   </p>
 
+  <% room.sessions.each do |session| %>
+    <p><%= session.user.email_address %> is in this room</p>
+  <% end %>
+
 </div>

@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: %i[ show edit update destroy ]
+  before_action :set_room, only: %i[ show edit update destroy enter leave ]
 
   # GET /rooms or /rooms.json
   def index
@@ -17,6 +17,28 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
+  end
+
+  def enter
+    current_session = resume_session
+
+    if current_session && current_session.room.nil?
+      current_session.update(room: @room)
+      redirect_to @room, notice: 'You have entered the room.'
+    else
+      redirect_to @room, alert: 'You are already in a room or session not found.'
+    end
+  end
+
+  def leave
+    current_session = resume_session
+
+    if current_session && current_session.room == @room
+      current_session.update(room: nil)
+      redirect_to rooms_path, notice: 'You have left the room.'
+    else
+      redirect_to @room, alert: 'You are not in this room.'
+    end
   end
 
   # POST /rooms or /rooms.json

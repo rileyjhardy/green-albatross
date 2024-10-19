@@ -5,6 +5,7 @@
 <div>
   <%= link_to "Edit this room", edit_room_path(@room) %> |
   <%= link_to "Back to rooms", rooms_path %>
+  <%= button_to "Leave this room", leave_room_path(@room), method: :delete %>
 
   <%= button_to "Destroy this room", @room, method: :delete %>
 </div>
