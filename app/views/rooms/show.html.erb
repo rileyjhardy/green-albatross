@@ -2,6 +2,18 @@
 
 <%= render @room %>
 
+<div data-controller="room">
+  <h1>WebRTC Video Chat</h1>
+
+  <div id="video-container">
+    <video data-room-target="localVideo" autoplay muted></video>
+    <video data-room-target="remoteVideo" id="remote-video" autoplay></video>
+  </div>
+
+  <button id="start-call" data-action="click->room#startCall">Start Call</button>
+  <input data-room-target="peerId" id="peer-id" type="text" placeholder="Enter peer ID to call">
+</div>
+
 <div>
   <%= link_to "Edit this room", edit_room_path(@room) %> |
   <%= link_to "Back to rooms", rooms_path %>
