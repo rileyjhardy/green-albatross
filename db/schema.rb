@@ -13,6 +13,7 @@
 ActiveRecord::Schema[8.0].define(version: 2024_10_19_213611) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "rooms", force: :cascade do |t|
     t.string "name"
@@ -27,6 +28,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_19_213611) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "room_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["room_id"], name: "index_sessions_on_room_id"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
