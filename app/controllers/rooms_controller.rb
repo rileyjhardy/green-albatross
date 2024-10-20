@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: %i[ show edit update destroy enter leave ]
+  before_action :set_room, only: %i[ show edit update destroy leave ]
+  before_action :enter_room, only: [ :show ]
 
   # GET /rooms or /rooms.json
   def index
@@ -17,17 +18,6 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
-  end
-
-  def enter
-    current_session = resume_session
-
-    if current_session && current_session.room.nil?
-      current_session.update(room: @room)
-      redirect_to @room, notice: 'You have entered the room.'
-    else
-      redirect_to @room, alert: 'You are already in a room or session not found.'
-    end
   end
 
   def leave
@@ -88,5 +78,10 @@ class RoomsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def room_params
       params.expect(room: [ :name ])
+    end
+
+    def enter_room
+      current_session = resume_session
+      current_session.update(room: @room)
     end
 end
