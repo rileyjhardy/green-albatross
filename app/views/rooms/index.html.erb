@@ -8,8 +8,7 @@
   <% @rooms.each do |room| %>
     <%= render room %>
     <p>
-      <%= link_to "Show this room", room %>
-      <%= button_to "Enter this room", enter_room_path(room), method: :post %>
+      <%= link_to "Enter this room", room %>
     </p>
   <% end %>
 </div>

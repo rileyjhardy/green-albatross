@@ -1,43 +1,44 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
+import consumer from "channels/consumer";
 
 // Connects to data-controller="room"
 export default class extends Controller {
-  static targets = [ "peerId", "remoteVideo", "localVideo" ]
+  static targets = ["peerId", "remoteVideo", "localVideo"];
 
   constructor(props) {
     super(props);
-    this.peer = new Peer();
+    this.peer = null;
     this.localStream = null;
   }
 
-  connect() {
-    this.peer.on('open', (id) => {
-      console.log('My peer ID is: ' + id);
+  async connect() {
+    this.peer = new Peer(this.localVideoTarget.dataset.peerId);
+
+    this.peer.on("open", () => this.initiateCalls());
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true,
     });
 
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        this.localStream = stream;
-        this.localVideoTarget.srcObject = stream;
-      });
+    this.localStream = stream;
+    this.localVideoTarget.srcObject = stream;
 
-    this.peer.on('call', (call) => {
+    this.peer.on("call", (call) => {
       call.answer(this.localStream);
-      call.on('stream', (remoteStream) => {
-        this.remoteVideoTarget.srcObject = remoteStream;
-      });
     });
   }
 
-  startCall() {
-    const call = this.peer.call(this.peerIdTarget.value, this.localStream);
-    call.on('stream', (remoteStream) => {
-      this.remoteVideoTarget.srcObject = remoteStream;
-    });
+  initiateCalls() {
+    for (const remoteVideo of this.remoteVideoTargets) {
+      const call = this.peer.call(remoteVideo.dataset.peerId, this.localStream);
+      call.on("stream", (remoteStream) => {
+        remoteVideo.srcObject = remoteStream;
+      });
+    }
   }
 
   disconnect() {
     this.peer.destroy();
-    console.log("Goodbye, Stimulus!", this.element);
   }
 }

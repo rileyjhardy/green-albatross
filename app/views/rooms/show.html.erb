@@ -6,7 +6,7 @@
   <h1>WebRTC Video Chat</h1>
 
   <div id="video-container">
-    <video data-room-target="localVideo" autoplay muted></video>
+    <video data-room-target="localVideo" data-peer-id="<%= authenticated?.uuid %>" autoplay muted></video>
     <div class="remote-videos" id="remote-videos">
       <% @room.remote_sessions.each do |session| %>
         <%= render "remote-video", session: session %>
