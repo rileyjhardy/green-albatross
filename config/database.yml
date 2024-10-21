@@ -83,8 +83,6 @@ production:
   primary: &primary_production
     <<: *default
     database: green_albatross_production
-    username: green_albatross
-    password: my_password
   cache:
     <<: *primary_production
     database: green_albatross_production_cache
