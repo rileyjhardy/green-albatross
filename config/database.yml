@@ -84,7 +84,7 @@ production:
     <<: *default
     database: green_albatross_production
     username: green_albatross
-    password: <%= ENV["POSTGRES_PASSWORD"] %>
+    password: my_password
   cache:
     <<: *primary_production
     database: green_albatross_production_cache
