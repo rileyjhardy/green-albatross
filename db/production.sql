@@ -1,0 +1,4 @@
+CREATE DATABASE green_albatross_production;
+CREATE DATABASE green_albatross_production_cache;
+CREATE DATABASE green_albatross_production_queue;
+CREATE DATABASE green_albatross_production_cable;
