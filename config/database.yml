@@ -17,7 +17,9 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
+  username: root
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("POSTGRES_HOST") { "127.0.0.1" } %>
 
 
 development:
@@ -82,9 +84,7 @@ production:
   primary: &primary_production
     <<: *default
     database: green_albatross_production
-    # username: green_albatross
     password: <%= ENV["POSTGRES_PASSWORD"] %>
-    host: <%= ENV["POSTGRES_HOST"] %>
   cache:
     <<: *primary_production
     database: green_albatross_production_cache
