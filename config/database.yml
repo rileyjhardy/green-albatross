@@ -83,6 +83,7 @@ production:
   primary: &primary_production
     <<: *default
     database: green_albatross_production
+    username: postgres
   cache:
     <<: *primary_production
     database: green_albatross_production_cache
