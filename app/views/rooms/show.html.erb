@@ -3,9 +3,8 @@
 <%= render @room %>
 
 <div data-controller="room" data-id="<%= @room.id %>">
-  <h1>WebRTC Video Chat</h1>
 
-  <div id="video-container">
+  <div id="video-container" class="video-container">
     <video data-room-target="localVideo" data-peer-id="<%= authenticated?.uuid %>" autoplay muted></video>
     <div class="remote-videos" id="remote-videos">
       <% @room.remote_sessions.each do |session| %>
@@ -13,9 +12,6 @@
       <% end %>
     </div>
   </div>
-
-  <button id="start-call" data-action="click->room#startCall">Start Call</button>
-  <input data-room-target="peerId" id="peer-id" type="text" placeholder="Enter peer ID to call">
 </div>
 
 

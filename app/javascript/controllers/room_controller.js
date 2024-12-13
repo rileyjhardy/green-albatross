@@ -12,7 +12,10 @@ export default class extends Controller {
   }
 
   async connect() {
+    console.log("connect");
     this.peer = new Peer(this.localVideoTarget.dataset.peerId);
+
+    console.log("peer", this.peer);
 
     this.peer.on("open", () => this.initiateCalls());
 
@@ -30,6 +33,7 @@ export default class extends Controller {
   }
 
   initiateCalls() {
+    console.log("initiateCalls");
     for (const remoteVideo of this.remoteVideoTargets) {
       const call = this.peer.call(remoteVideo.dataset.peerId, this.localStream);
       call.on("stream", (remoteStream) => {

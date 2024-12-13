@@ -1,0 +1,11 @@
+.video-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.remote-videos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+}
