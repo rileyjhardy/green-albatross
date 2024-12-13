@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.0.0.rc1"
 gem "propshaft"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.5"
 gem "puma", ">= 5.0"
 gem "importmap-rails"
 gem "turbo-rails"
